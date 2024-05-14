@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
         // console.log('User Data:', data.name);
         this.userName = data.name;
         this.bio = data.bio
-        console.log(this.bio)
+        // console.log(this.bio)
       },
       (error) => {
         console.log(error);
