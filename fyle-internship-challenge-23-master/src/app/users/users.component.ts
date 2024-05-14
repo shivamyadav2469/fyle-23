@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ApiService } from '../services/api.service';
 
@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit {
   pageSize: number = 10; 
   currentPage: number = 1; 
   itemsPerPageOptions: number[] = [10, 15, 25, 50, 100]; 
- 
+  bio: string = ''; // Add a variable to store bio
 
   constructor(private route: ActivatedRoute, public service: ApiService) {
     this.pageSize = 10;
@@ -36,26 +36,19 @@ export class UsersComponent implements OnInit {
   }
 
   getCachedRepos(userId: string) {
-    this.service.getWithCache<any>(`https://api.github.com/users/${userId}/repos`, {
-      page: this.currentPage,
-      per_page: this.pageSize 
-    })
+    this.service.getWithCache<any>(`https://api.github.com/users/${userId}/repos`, {})
       .subscribe((data) => {
-        // console.log('data:', data);
         this.repositories = data || [];
-        // console.log("the reoos is", this.repositories);
-        // Update total count from API response
         this.total = data?.total_count || this.repositories.length; 
-        // console.log("the total is ", this.total);
         this.details = data;
-        // console.log("the details is ", this.details);
+        this.getBio(userId); 
         this.loaded = true;
       }, (error) => {
         console.error(error);
         window.history.go(-1);
       });
   }
-  
+
   nextPage(): void {
     if (this.currentPage < this.calculatePages()) {
       this.currentPage++;
@@ -79,5 +72,16 @@ export class UsersComponent implements OnInit {
     this.pageSize = parseInt((<HTMLSelectElement>event.target).value, 10);
     this.currentPage = 1; 
     this.getCachedRepos(this.userId); 
+  }
+
+  getBio(userId: string) {
+    this.service.getName(userId).subscribe(
+      (data: any) => {
+        this.bio = data.bio || ''; // Assign bio value or empty string if bio is null
+      },
+      (error) => {
+        console.error('Error fetching bio:', error);
+      }
+    );
   }
 }

@@ -12,6 +12,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   users: any;
   userId: string = '';
   userName: string = ''; 
+  bio :string = '';
   loaded = false;
   showFamousReposSection: boolean = false;
   showFamousRepos = false;

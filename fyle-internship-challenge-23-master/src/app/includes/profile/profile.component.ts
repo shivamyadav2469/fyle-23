@@ -11,6 +11,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class ProfileComponent implements OnInit {
   @Input() userId: string = 'jk';
   userName: string = '';
+  bio:string = '';
   constructor(public service: ApiService){}
 
   ngOnInit(){
@@ -22,6 +23,8 @@ export class ProfileComponent implements OnInit {
       (data) => {
         // console.log('User Data:', data.name);
         this.userName = data.name;
+        this.bio = data.bio
+        console.log(this.bio)
       },
       (error) => {
         console.log(error);

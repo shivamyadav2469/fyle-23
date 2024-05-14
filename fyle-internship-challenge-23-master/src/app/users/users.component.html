@@ -30,7 +30,7 @@
       <p class="font-bold font-sans text-white text-xl">Github.com/{{details[0].owner.login}}</p>
 
       <p class="mt-1 text-white">
-        Bio: {{details[0].description ? details[0].description : 'No description present here'}}
+        Bio: {{bio ? bio : 'No description present here'}}
       </p>
 
       <div class="mt-2 flex flex-col md:flex-row lg:flex-row">
@@ -42,7 +42,7 @@
 
   <div class="p-2 mt-2">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6">
-      <ng-container *ngFor="let data of repositories">
+      <ng-container *ngFor="let data of repositories.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
         <div class="border border-x-white-700 border-y-white-800 p-4 rounded-md" (click)="goToRepo(details[0]?.owner?.login, data.name)" style="cursor: pointer;">
           <p class="text-3xl font-bold text-sky-800 font-serif">{{ data.name }}</p>
           <p class="text-sm font-Consolas text-white">{{ data.description }}</p>
@@ -50,7 +50,7 @@
         </div>
       </ng-container>
     </div>
-
+  
     <div class="flex flex-col md:flex-row justify-between items-center mt-8">
       <div class="flex items-center mb-4 md:mb-0">
         <span class="mr-2 text-white">Page Size:</span>
@@ -58,15 +58,16 @@
           <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
         </select>
       </div>
-      <!-- <div class="flex justify-center md:justify-end">
+      <div class="flex justify-center md:justify-end">
         <button class="bg-sky-700 text-bold text-white rounded-sm px-2 py-1 mr-2" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
         <span class="text-white">Page {{currentPage}} of {{ calculatePages() }}</span>
         <button class="bg-sky-700 text-bold text-white rounded-sm px-2 py-1 ml-2" (click)="nextPage()" [disabled]="currentPage === calculatePages()">Next</button>
-      </div> -->
+      </div>
     </div>
     
     <!-- <div class="text-white mt-4">Total Repositories: {{ total }}</div> -->
   </div>
+  
 </div>
 
   
