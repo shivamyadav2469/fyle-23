@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+  
+  @layer utilities {
+    @keyframes floatUpDown {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+  }
+  
+  @layer components {
+    .animate-float-up-down {
+      animation: floatUpDown 2s infinite alternate;
+    }
+  }

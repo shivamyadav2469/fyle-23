@@ -1,0 +1,101 @@
+<div style="background: rgb(37, 33, 41); background: linear-gradient(90deg, rgba(37, 33, 41, 1) 57%, rgba(25, 52, 93, 1) 98%);" class="min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="mx-auto md:ml-20 flex items-center"> 
+        <img src="https://static-00.iconduck.com/assets.00/github-icon-2048x1988-jzvzcf2t.png" height="50px" width="50px" alt="Logo" >
+      </div>
+      <div class="hidden font-extrabold text-3xl antialiased font-serif tracking-wide mr-[530px]  lg:flex items-center text-center text-white mx-auto  ">
+        <h1>Github</h1>
+    </div>
+      <div class="relative">
+        <div class="md:space-x-4 md:justify-center sm:flex hidden">
+          <a href="#" class="text-white">Home</a>
+          <a href="#" class="text-white">About</a>
+          <a href="#" class="text-white">Contact</a>
+        </div>
+      </div>
+    </div>
+</nav>
+
+  <!-- Divider -->
+  <hr>
+
+  <!-- Main Content -->
+  <div class="container mx-auto pb-12">
+    <div class="flex flex-col lg:flex-row items-center lg:items-start">
+      <div class="lg:w-1/2">
+        <div class="font-semibold text-3xl md:text-5xl lg:text-7xl lg:ml-8 md:ml-8 mb-4 text-white">
+          Welcome to <span class="role text-cyan-400">GitUsers</span>
+        </div>
+        <div class="">
+          <div class="flex flex-col gap-2 font-bold font-mono pl-[2rem] h-[350px]">
+            <span class="text-github text-cyan-400 leading-relaxed">
+              &lt;!DOCTYPE html&gt;<br />
+              &lt;html&gt;<br />
+              &nbsp;&nbsp;&lt;head&gt;&lt;title&gt;Example&lt;/title&gt;<br />
+              &nbsp;&nbsp;&lt;link rel="stylesheet" href="styles.css"&gt;<br />
+              &lt;/head&gt;<br />
+              &lt;p&gt;GitUsers offers a user-friendly and streamlined method for uncovering and<br />
+              delving into the wide range of projects available on GitHub.<br />
+              By inputting a username, you gain access to a plethora of open-source initiatives,<br />
+              facilitating effortless exploration and discovery.&lt;/p&gt;
+            </span>
+          </div>
+          <!-- <p class="text-cyan-400 p-4">
+            GitUsers offers a user-friendly and streamlined method for uncovering and delving into the wide range 
+            of projects available on GitHub. By inputting a username, you gain access
+             to a plethora of open-source initiatives, facilitating effortless exploration and discovery.</p> -->
+        </div>
+      </div>
+      <div class="sm:w-0 hidden lg:block lg:w-1/3 m-[3rem]">
+        <div class="bg-none relative">
+          <img
+            [src]="catImage"
+            alt="img"
+            width="60%"
+            class="bg-none pointer-events-none animate-float-up-down"
+            style="float: right;"
+          />
+        </div>
+      </div>
+    </div>
+    
+    <div class="pl-4 flex flex-col justify-center items-center">
+      <h1 class="text-2xl font-bold mb-4 text-white">Discover a treasure trove of users and repositories with just one search....</h1>
+      <div class="flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 md:gap-0">
+        <form (submit)="repos(key.value)" class="flex flex-col md:flex-row items-center gap-2">
+          <input required type="text" #key name="keyword" id="keyword" placeholder="Search Users" class="w-full md:w-[470px] p-2 mb-4 md:mb-0 md:mr-2 border border-gray-300 rounded">
+          <button type="submit" class="bg-gray-500 text-white p-2 rounded w-full sm:w-[120px]">Search</button>
+          <button type="button" (click)="toggleFamousReposSection()" class="bg-gray-500 text-white p-2 rounded  w-full sm:w-[120px]">
+            Famous Repos
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Famous Repos Section -->
+  <div *ngIf="showFamousReposSection">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5 ">
+      <div *ngFor="let data of users" class="border border-white ml-[1rem] mt-8 hover:drop-shadow-2xl cursor-pointer hover:scale-110 p-4 mr-4">
+        <img src="../../assets/download.png" *ngIf="!loaded" alt="user_img" class="max-w-full rounded-lg h-auto" style="width: 400px; height: 310px;">
+        <img src="{{data.avatar_url}}" *ngIf="loaded" alt="user_img" class="w-full max-w-full rounded-lg" style="max-height: 300px;">
+        <p class="font-bold font-sans text-2xl text-white">
+          <app-profile class="font-serif" [userId]="data.login"></app-profile>
+        </p>
+        <p><span class="underline decoration-sky-500 font-bold text-sm text-white">Github.com/{{data.login}}</span></p>
+      </div>
+    </div>
+  </div>
+<hr/>
+  <!-- Footer -->
+  <footer class=" text-white py-2">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2024 Is this Clone of Github</p>
+      <p class="mt-2">Designed with <span class="text-red-500">&#10084;</span> by Shivam Kumar Yadav</p>
+    </div>
+  </footer>
+
+</div>
